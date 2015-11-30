@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Description",
   "main": "index.js",
-  "author": "Karsten Nolte",
+  "author": "itemis AG",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",

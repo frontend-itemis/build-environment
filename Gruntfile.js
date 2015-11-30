@@ -39,6 +39,8 @@ module.exports = function(grunt) {
             }
         },
 
+        clean: ['<%= app.built %>/*'],
+
         copy: {
             build: {
                 files: [
@@ -85,9 +87,10 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
-    grunt.registerTask('default', ['compass', 'watch']);
+    grunt.registerTask('default', ['copy', 'compass', 'concat', 'watch']);
 };

@@ -13,6 +13,6 @@
     "tslint": "^3.0.0",
     "typescript": "^1.6.2"
   },
-  "repository": "https://github.com/karstennolte/build-environment.git",
+  "repository": "https://github.com/frontend-itemis/built-environment.git",
   "license": "ISC"
 }

@@ -1,5 +1,8 @@
 module.exports = function(grunt) {
 
+    // Time how long tasks take. Can help when optimizing build times
+    require('time-grunt')(grunt);
+
     var appConfig = {
         dir: 'app',
         built: 'built',
@@ -41,7 +44,7 @@ module.exports = function(grunt) {
                     require('cssnano')() // minify the result
                 ]
             },
-            dist: {
+            build: {
                 src: '<%= app.css %>/*.css'
             }
         },
@@ -59,7 +62,7 @@ module.exports = function(grunt) {
             }
         },
 
-        // Copy all files (html, css) into the built folder
+        // Copy all files (html, css, js, images) into the built folder
         copy: {
             build: {
                 files: [
@@ -73,6 +76,18 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'app/styles',
                         src: ['style.css'],
+                        dest: '<%= app.built %>'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'app/',
+                        src: ['images/*'],
+                        dest: '<%= app.built %>'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'app/',
+                        src: ['js/*'],
                         dest: '<%= app.built %>'
                     }
                 ]
@@ -131,12 +146,19 @@ module.exports = function(grunt) {
     // Default task(s).
     grunt.registerTask('default', [
         'clean',
-        'copy',
         'compass',
         'postcss',
         'concat',
+        'copy',
         'watch'
     ]);
 
+    grunt.registerTask('build', [
+        'clean',
+        'compass',
+        'postcss',
+        'concat',
+        'copy'
+    ]);
 
 };

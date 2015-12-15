@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "AAEE,MAAE,CACA,SAAS,CAAE,IAAI",
-"sources": ["../sass/main.scss"],
-"names": [],
-"file": "main.css"
-}
+{"version":3,"sources":["../sass/main.scss"],"names":[],"mappings":"AAEE,QACE,WACA,cAAe,CAEjB,QACE,qBAAA,oBAAA,YAAa,CAAA","file":"main.css"}

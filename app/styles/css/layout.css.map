@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "AACA,IAAK,CACH,gBAAgB,CAAE,GAAG",
-"sources": ["../sass/layout.scss"],
-"names": [],
-"file": "layout.css"
-}
+{"version":3,"sources":["../sass/layout.scss"],"names":[],"mappings":"AACA,KACE,qBAAuB,CAAA","file":"layout.css"}

@@ -1,44 +1,42 @@
 <!doctype html>
-<html>
+<html lang="de">
     <head>
         <meta charset="utf-8">
         <title>Buildumgebung Starter Kit</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
         <link rel="stylesheet" href="style.css">
     </head>
 
-    <body ng-app="starter-kit">
+    <body ng-app="starter-kit" ng-cloak>
 
         <h1>Buildumgebung Starter Kit</h1>
 
         <section ng-controller="todoController">
             <h1>Todos</h1>
-            <ul>
-                <li ng-repeat="todo in todos">{{ todo.name }}</li>
-            </ul>
+            <md-list>
+                <md-list-item ng-repeat="todo in todos">
+                    <p>{{ todo.name }}</p>
+                    <md-checkbox></md-checkbox>
+                </md-list-item>
+            </md-list>
         </section>
 
-        <script src="https://code.angularjs.org/1.4.8/angular.min.js"></script>
+        <!-- Angular Material requires Angular.js Libraries -->
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-resource.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
 
+        <!-- Angular Material Library -->
+        <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+        <!-- app -->
         <script src="app.min.js"></script>
-
-        <!-- angular
-        <script src="bower_components/angular-animate/angular-animate.js"></script>
-        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-        <script src="bower_components/angular-resource/angular-resource.js"></script>
-        <script src="bower_components/angular-route/angular-route.js"></script>
-        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <script src="bower_components/angular-touch/angular-touch.js"></script>
-         -->
-
-        <!-- scripts
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/controllers/myroute.js"></script>
-        -->
 
         <!-- only in dev mode -->
         <script src="//localhost:35729/livereload.js"></script>

@@ -1,10 +1,11 @@
 /// <reference path='declarations/angularjs/angular.d.ts' />
 'use strict';
-var app = angular.module('starter-kit', []);
+var app = angular.module('starter-kit', ['ngMaterial', 'ngResource']);
 var todos = [
-    { name: "Zimmer Aufräumen huhu" },
+    { name: "Zimmer Aufräumen" },
     { name: "Einkaufen" },
-    { name: "Tanken" }
+    { name: "Tanken" },
+    { name: "Fernsehen" }
 ];
 function sortByName(a) {
     var result = a.slice(0);
@@ -13,6 +14,7 @@ function sortByName(a) {
     });
     return result;
 }
+/* todoController */
 app.controller('todoController', function ($scope) {
     $scope.todos = sortByName(todos);
 });

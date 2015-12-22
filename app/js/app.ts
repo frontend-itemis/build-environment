@@ -2,7 +2,7 @@
 
 'use strict';
 
-var app = angular.module('starter-kit', []);
+var app = angular.module('starter-kit', ['ngMaterial', 'ngResource']);
 
 interface Todo {
     name: string;
@@ -10,9 +10,10 @@ interface Todo {
 }
 
 var todos = [
-    { name: "Zimmer Aufräumen huhu" },
+    { name: "Zimmer Aufräumen" },
     { name: "Einkaufen" },
-    { name: "Tanken" }
+    { name: "Tanken" },
+    { name: "Fernsehen" }
 ];
 
 function sortByName(a: Todo[]) {
@@ -22,7 +23,3 @@ function sortByName(a: Todo[]) {
     });
     return result;
 }
-
-app.controller('todoController', function ($scope) {
-    $scope.todos = sortByName(todos);
-});

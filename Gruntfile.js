@@ -173,6 +173,18 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-typescript');
 
+    // Typescript compiler
+    grunt.registerTask('ts', 'typescript');
+
+    // Only build without watch task
+    grunt.registerTask('build', [
+        'clean',
+        'compass',
+        'postcss',
+        'concat',
+        'copy'
+    ]);
+
     // Default task(s).
     grunt.registerTask('default', [
         'clean',
@@ -181,17 +193,6 @@ module.exports = function(grunt) {
         'concat',
         'copy',
         'watch'
-    ]);
-
-    grunt.registerTask('ts', 'typescript');
-
-    // Only build without watch
-    grunt.registerTask('build', [
-        'clean',
-        'compass',
-        'postcss',
-        'concat',
-        'copy'
     ]);
 
     /*

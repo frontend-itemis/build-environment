@@ -2,22 +2,27 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>Buildumgebung Starter Kit</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="stylesheet" href="style.css">
     </head>
 
-    <body ng-app="">
+    <body ng-app="starter-kit">
 
         <h1>Buildumgebung Starter Kit</h1>
 
-        <div class="container">
-            <div ng-view=""></div>
-        </div>
+        <section ng-controller="todoController">
+            <h1>Todos</h1>
+            <ul>
+                <li ng-repeat="todo in todos">{{ todo.name }}</li>
+            </ul>
+        </section>
 
         <script src="https://code.angularjs.org/1.4.8/angular.min.js"></script>
+
+        <script src="app.min.js"></script>
 
         <!-- angular
         <script src="bower_components/angular-animate/angular-animate.js"></script>

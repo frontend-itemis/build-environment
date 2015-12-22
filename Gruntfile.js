@@ -8,7 +8,8 @@ module.exports = function(grunt) {
         built: 'built',
         sass: 'app/styles/sass',
         css: 'app/styles/css',
-        js: 'app/scripts'
+        js: 'app/js',
+        images: 'app/images'
     };
 
     // Project configuration.
@@ -64,49 +65,77 @@ module.exports = function(grunt) {
 
         // Copy all files (html, css, js, images) into the built folder
         copy: {
-            build: {
+            html: {
                 files: [
                     {
                         expand: true,
                         cwd: 'app/',
                         src: ['*.html'],
                         dest: '<%= app.built %>'
-                    },
+                    }
+                ]
+            },
+            css: {
+                files: [
                     {
                         expand: true,
                         cwd: 'app/styles',
                         src: ['style.css'],
                         dest: '<%= app.built %>'
-                    },
+                    }
+                ]
+            },
+            js: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'app/js',
+                        src: ['app.min.js'],
+                        dest: '<%= app.built %>'
+                    }
+                ]
+            },
+            images: {
+                files: [
                     {
                         expand: true,
                         cwd: 'app/',
                         src: ['images/*'],
-                        dest: '<%= app.built %>'
-                    },
-                    {
-                        expand: true,
-                        cwd: 'app/',
-                        src: ['js/*'],
                         dest: '<%= app.built %>'
                     }
                 ]
             }
         },
 
-        // Filewatcher for html, css, js and livereload built files
+        // Minifies js files
+        uglify: {
+            options: {
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+                mangle: false
+            },
+            build: {
+                src: '<%= app.js %>/app.js',
+                dest: '<%= app.js %>/app.min.js'
+            }
+        },
+
+        // Filewatcher for html, css, js, images and livereload built files
         watch: {
             html: {
                 files: ['<%= app.dir %>/*.html'],
-                tasks: ['copy']
+                tasks: ['copy:html']
             },
             css: {
                 files: ['<%= app.sass %>/*.{scss,sass}'],
-                tasks: ['compass', 'postcss', 'concat', 'copy']
+                tasks: ['compass', 'postcss', 'concat', 'copy:css']
             },
             js: {
-                files: [],
-                tasks: []
+                files: ['<%= app.js %>/app.js'],
+                tasks: ['uglify', 'copy:js']
+            },
+            images: {
+                files: ['<%= app.images %>/*.{png,jpg,jpeg,gif}'],
+                tasks: ['copy:images']
             },
             livereload: {
                 options: {
@@ -118,22 +147,21 @@ module.exports = function(grunt) {
             }
         },
 
-        // Minifies js files
-        uglify: {
-            options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-            },
-            build: {
-                src: 'src/<%= pkg.name %>.js',
-                dest: 'build/<%= pkg.name %>.min.js'
+        typescript: {
+            base: {
+                src: ['<%= app.js %>/**/*.ts'],
+                dest: '<%= app.js %>/app.js',
+                options: {
+                    module: 'amd', //or commonjs
+                    target: 'es5', //or es3
+                    rootDir: '<%= app.js %>',
+                    sourceMap: false,
+                    declaration: false,
+                    watch: true
+                }
             }
         }
     });
-
-    /*
-    // Load the plugin that provides the "uglify" task.
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    */
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-compass');
@@ -142,6 +170,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-postcss');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-typescript');
 
     // Default task(s).
     grunt.registerTask('default', [
@@ -153,6 +183,9 @@ module.exports = function(grunt) {
         'watch'
     ]);
 
+    grunt.registerTask('ts', 'typescript');
+
+    // Only build without watch
     grunt.registerTask('build', [
         'clean',
         'compass',
@@ -161,4 +194,9 @@ module.exports = function(grunt) {
         'copy'
     ]);
 
+    /*
+    grunt.registerTask('test', [
+
+    ]);
+    */
 };

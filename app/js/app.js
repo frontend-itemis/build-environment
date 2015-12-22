@@ -1,11 +1,12 @@
-/// <reference path='declarations/angularjs/angular.d.ts' />
+/// <reference path='libs/angularjs/angular.d.ts' />
 'use strict';
 var app = angular.module('starter-kit', ['ngMaterial', 'ngResource']);
 var todos = [
     { name: "Zimmer Aufräumen" },
     { name: "Einkaufen" },
     { name: "Tanken" },
-    { name: "Fernsehen" }
+    { name: "Fernsehen" },
+    { name: "Boden wischen" }
 ];
 function sortByName(a) {
     var result = a.slice(0);

@@ -195,9 +195,6 @@ module.exports = function(grunt) {
         'watch'
     ]);
 
-    /*
-    grunt.registerTask('test', [
-
-    ]);
-    */
+    //grunt.registerTask('sprites', '');
+    //grunt.registerTask('test', '');
 };

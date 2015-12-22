@@ -1,4 +1,4 @@
-/// <reference path='declarations/angularjs/angular.d.ts' />
+/// <reference path='libs/angularjs/angular.d.ts' />
 
 'use strict';
 
@@ -13,7 +13,8 @@ var todos = [
     { name: "Zimmer Aufräumen" },
     { name: "Einkaufen" },
     { name: "Tanken" },
-    { name: "Fernsehen" }
+    { name: "Fernsehen" },
+    { name: "Boden wischen" }
 ];
 
 function sortByName(a: Todo[]) {

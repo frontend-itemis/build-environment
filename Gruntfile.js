@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 
     // Time how long tasks take. Can help when optimizing build times
-    require('time-grunt')(grunt);
+    //require('time-grunt')(grunt);
 
     var appConfig = {
         dir: 'app',
@@ -129,6 +129,18 @@ module.exports = function(grunt) {
                 files: ['<%= app.sass %>/*.{scss,sass}'],
                 tasks: ['compass', 'postcss', 'concat', 'copy:css']
             },
+            ts: {
+                files: ['<%= app.js %>/**/*.ts'],
+                tasks: ['typescript']
+            },
+            tslint: {
+                files: [
+                    "<%= app.js %>/**/*.ts",
+                    "!<%= app.js %>/_all.ts",
+                    "!<%= app.js %>/libs/**/*.ts"
+                ],
+                tasks: ['tslint']
+            },
             js: {
                 files: ['<%= app.js %>/app.js'],
                 tasks: ['uglify', 'copy:js']
@@ -156,9 +168,30 @@ module.exports = function(grunt) {
                     target: 'es5', //or es3
                     rootDir: '<%= app.js %>',
                     sourceMap: false,
-                    declaration: false,
-                    watch: true
+                    declaration: false
                 }
+            }
+        },
+
+        tslint: {
+            options: {
+                // can be a configuration object or a filepath to tslint.json
+                configuration: "tslint.json"
+            },
+            files: {
+                src: [
+                    "<%= app.js %>/**/*.ts",
+                    "!<%= app.js %>/_all.ts",
+                    "!<%= app.js %>/libs/**/*.ts"
+                ]
+            }
+        },
+
+        // Test settings
+        karma: {
+            unit: {
+                configFile: 'test/karma.conf.js',
+                singleRun: true
             }
         }
     });
@@ -169,21 +202,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+
+    grunt.loadNpmTasks('grunt-postcss');
+    grunt.loadNpmTasks("grunt-tslint");
     grunt.loadNpmTasks('grunt-typescript');
-
-    // Typescript compiler
-    grunt.registerTask('ts', 'typescript');
-
-    // Only build without watch task
-    grunt.registerTask('build', [
-        'clean',
-        'compass',
-        'postcss',
-        'concat',
-        'copy'
-    ]);
+    grunt.loadNpmTasks('grunt-karma');
 
     // Default task(s).
     grunt.registerTask('default', [
@@ -195,6 +220,17 @@ module.exports = function(grunt) {
         'watch'
     ]);
 
+    // Only build without watch task
+    grunt.registerTask('build', [
+        'clean',
+        'compass',
+        'postcss',
+        'concat',
+        'copy'
+    ]);
+
+    // Run Jasmine Tests with Karma
+    grunt.registerTask('test', 'karma');
+
     //grunt.registerTask('sprites', '');
-    //grunt.registerTask('test', '');
 };

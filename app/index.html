@@ -11,18 +11,40 @@
         <link rel="stylesheet" href="style.css">
     </head>
 
-    <body ng-app="starter-kit" ng-cloak>
+    <body ng-app="starterkit">
 
         <h1>Buildumgebung Starter Kit</h1>
 
-        <section ng-controller="todoController">
-            <h1>Todos</h1>
+        <h2>Checkboxes</h2>
+
+        <section ng-controller="todoController" ng-cloak>
             <md-list>
                 <md-list-item ng-repeat="todo in todos">
                     <p>{{ todo.name }}</p>
                     <md-checkbox></md-checkbox>
                 </md-list-item>
             </md-list>
+        </section>
+
+        <h2>Inputs</h2>
+
+        <section ng-controller="formController" ng-cloak>
+            <md-content layout-padding>
+                <div>
+                    <form name="userForm">
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Vorname</label>
+                                <input ng-model="user.firstName">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Nachname</label>
+                                <input ng-model="user.lastName">
+                            </md-input-container>
+                        </div>
+                    </form>
+                </div>
+            </md-content>
         </section>
 
         <!-- Angular Material requires Angular.js Libraries -->

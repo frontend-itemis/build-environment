@@ -85,16 +85,6 @@ module.exports = function(grunt) {
                     }
                 ]
             },
-            js: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'app/js',
-                        src: ['app.min.js'],
-                        dest: '<%= app.built %>'
-                    }
-                ]
-            },
             images: {
                 files: [
                     {
@@ -114,8 +104,8 @@ module.exports = function(grunt) {
                 mangle: false
             },
             build: {
-                src: '<%= app.js %>/app.js',
-                dest: '<%= app.js %>/app.min.js'
+                src: '<%= app.built %>/app.js',
+                dest: '<%= app.built %>/app.min.js'
             }
         },
 
@@ -142,8 +132,8 @@ module.exports = function(grunt) {
                 tasks: ['tslint']
             },
             js: {
-                files: ['<%= app.js %>/app.js'],
-                tasks: ['uglify', 'copy:js']
+                files: ['<%= app.built %>/app.js'],
+                tasks: ['uglify']
             },
             images: {
                 files: ['<%= app.images %>/*.{png,jpg,jpeg,gif}'],
@@ -162,7 +152,7 @@ module.exports = function(grunt) {
         typescript: {
             base: {
                 src: ['<%= app.js %>/**/*.ts'],
-                dest: '<%= app.js %>/app.js',
+                dest: '<%= app.built %>/app.js',
                 options: {
                     module: 'amd', //or commonjs
                     target: 'es5', //or es3
@@ -221,6 +211,8 @@ module.exports = function(grunt) {
         'clean',
         'compass',
         'postcss',
+        'typescript',
+        'uglify',
         'concat',
         'copy'
     ]);

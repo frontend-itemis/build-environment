@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     var appConfig = {
         dir: 'app',
         built: 'built',
-        sass: 'app/styles/sass',
+        sass: 'app/sass',
         css: 'app/styles/css',
         js: 'app/js',
         images: 'app/images'
@@ -29,7 +29,8 @@ module.exports = function(grunt) {
                 options: {
                     sourcemap: true,
                     sassDir: '<%= app.sass %>',
-                    cssDir: '<%= app.css %>',
+                    specify: '<%= app.sass %>/style.scss',
+                    cssDir: '<%= app.built %>',
                     environment: 'production'
                 }
             }
@@ -46,7 +47,7 @@ module.exports = function(grunt) {
                 ]
             },
             build: {
-                src: '<%= app.css %>/*.css'
+                src: '<%= app.built %>/*.css'
             }
         },
 
@@ -58,8 +59,8 @@ module.exports = function(grunt) {
                 '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: ['<%= app.css %>/*.css'],
-                dest: '<%= app.dir %>/styles/style.css'
+                src: ['<%= app.built %>/*.css'],
+                dest: '<%= app.built %>/style.css'
             }
         },
 
@@ -211,9 +212,9 @@ module.exports = function(grunt) {
         'clean',
         'compass',
         'postcss',
+        //'concat',
         'typescript',
         'uglify',
-        'concat',
         'copy'
     ]);
 

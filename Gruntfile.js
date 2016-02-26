@@ -184,6 +184,17 @@ module.exports = function(grunt) {
                 configFile: 'test/karma.conf.js',
                 singleRun: true
             }
+        },
+
+
+        serve: {
+            options: {
+                port: 9000,
+                output: 'stdout',
+                serve: {
+                    path: '<%= app.built %>'
+                }
+            }
         }
     });
 
@@ -200,6 +211,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-tslint");
     grunt.loadNpmTasks('grunt-typescript');
     grunt.loadNpmTasks('grunt-karma');
+
+    grunt.loadNpmTasks('grunt-serve');
 
     // Default task(s).
     grunt.registerTask('default', [

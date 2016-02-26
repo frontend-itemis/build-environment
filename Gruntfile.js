@@ -212,11 +212,7 @@ module.exports = function(grunt) {
 
     // Default task(s).
     grunt.registerTask('default', [
-        'clean',
-        'compass',
-        'postcss',
-        'concat',
-        'copy',
+        'build',
         'watch'
     ]);
 

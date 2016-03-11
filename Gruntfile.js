@@ -51,19 +51,6 @@ module.exports = function(grunt) {
             }
         },
 
-        // Concatenates all css files -> style.css
-        concat: {
-            options: {
-                stripBanners: true,
-                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-                '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
-            },
-            build: {
-                src: ['<%= app.built %>/*.css'],
-                dest: '<%= app.built %>/style.css'
-            }
-        },
-
         // Copy all files (html, css, js, images) into the built folder
         copy: {
             html: {
@@ -102,7 +89,9 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-                mangle: false
+                mangle: false,
+                sourceMap: true,
+                sourceMapIn: '<%= app.built %>/app.js.map'
             },
             build: {
                 src: '<%= app.built %>/app.js',
@@ -117,7 +106,7 @@ module.exports = function(grunt) {
                 tasks: ['copy:html']
             },
             css: {
-                files: ['<%= app.sass %>/*.{scss,sass}'],
+                files: ['<%= app.sass %>/**/*.{scss,sass}'],
                 tasks: ['compass', 'postcss', 'concat', 'copy:css']
             },
             ts: {
@@ -158,7 +147,7 @@ module.exports = function(grunt) {
                     module: 'amd', //or commonjs
                     target: 'es5', //or es3
                     rootDir: '<%= app.js %>',
-                    sourceMap: false,
+                    sourceMap: true,
                     declaration: false
                 }
             }
@@ -225,7 +214,6 @@ module.exports = function(grunt) {
         'clean',
         'compass',
         'postcss',
-        //'concat',
         'typescript',
         'uglify',
         'copy'
@@ -233,6 +221,4 @@ module.exports = function(grunt) {
 
     // Run Jasmine Tests with Karma
     grunt.registerTask('test', 'karma');
-
-    //grunt.registerTask('sprites', '');
 };

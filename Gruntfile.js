@@ -212,6 +212,7 @@ module.exports = function(grunt) {
     // Only build without watch task
     grunt.registerTask('build', [
         'clean',
+        'tslint',
         'compass',
         'postcss',
         'typescript',

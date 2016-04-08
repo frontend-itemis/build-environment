@@ -1,5 +1,3 @@
-/// <reference path='../_all.ts' />
-
 /* FormController */
 
 module starterkit {
@@ -16,4 +14,6 @@ module starterkit {
             };
         }
     }
+
+    angular.module("starterkit").controller("formController", FormCtrl);
 }

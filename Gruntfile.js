@@ -7,7 +7,6 @@ module.exports = function(grunt) {
         dir: 'app',
         built: 'built',
         sass: 'app/sass',
-        css: 'app/styles/css',
         js: 'app/js',
         images: 'app/images'
     };
@@ -23,15 +22,14 @@ module.exports = function(grunt) {
         // Empties built folder to start fresh
         clean: ['<%= app.built %>/*'],
 
-        // Compiles the sass files to normal css
-        compass: {
+        // Compiles the scss files to normal css
+        sass: {
             build: {
                 options: {
-                    sourcemap: true,
-                    sassDir: '<%= app.sass %>',
-                    specify: '<%= app.sass %>/style.scss',
-                    cssDir: '<%= app.built %>',
-                    environment: 'production'
+                    sourceMap: true
+                },
+                files: {
+                    '<%= app.built %>/style.css': '<%= app.sass %>/style.scss'
                 }
             }
         },
@@ -107,11 +105,11 @@ module.exports = function(grunt) {
             },
             css: {
                 files: ['<%= app.sass %>/**/*.{scss,sass}'],
-                tasks: ['compass', 'postcss', 'concat', 'copy:css']
+                tasks: ['sass', 'postcss', 'concat', 'copy:css']
             },
             ts: {
                 files: ['<%= app.js %>/**/*.ts'],
-                tasks: ['typescript']
+                tasks: ['ts']
             },
             tslint: {
                 files: [
@@ -139,16 +137,14 @@ module.exports = function(grunt) {
             }
         },
 
-        typescript: {
-            base: {
+        ts: {
+            default: {
                 src: ['<%= app.js %>/**/*.ts'],
-                dest: '<%= app.built %>/app.js',
+                out: '<%= app.built %>/app.js',
+                reference: '<%= app.js %>/_all.ts',
                 options: {
-                    module: 'amd', //or commonjs
-                    target: 'es5', //or es3
-                    rootDir: '<%= app.js %>',
-                    sourceMap: true,
-                    declaration: false
+                    fast: 'never',
+                    target: 'es5'
                 }
             }
         },
@@ -188,7 +184,6 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -196,9 +191,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
 
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks("grunt-tslint");
-    grunt.loadNpmTasks('grunt-typescript');
+    grunt.loadNpmTasks('grunt-ts');
     grunt.loadNpmTasks('grunt-karma');
 
     grunt.loadNpmTasks('grunt-serve');
@@ -213,9 +209,9 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean',
         'tslint',
-        'compass',
+        'sass',
         'postcss',
-        'typescript',
+        'ts',
         'uglify',
         'copy'
     ]);

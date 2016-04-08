@@ -1,5 +1,3 @@
-/// <reference path='../_all.ts' />
-
 /* TodoItem */
 
 module starterkit {

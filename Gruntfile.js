@@ -183,7 +183,7 @@ module.exports = function(grunt) {
         },
 
         exec: {
-            updateModules: {
+            installModules: {
                 cmd: 'npm install'
             }
         }
@@ -208,7 +208,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-exec');
 
     // Update node_modules
-    grunt.registerTask('update', 'exec:updateModules');
+    grunt.registerTask('install', 'exec:installModules');
 
     // Default task(s).
     grunt.registerTask('default', [
@@ -218,7 +218,7 @@ module.exports = function(grunt) {
 
     // Only build without watch task
     grunt.registerTask('build', [
-        'update',
+        'install',
         'clean',
         'tslint',
         'sass',

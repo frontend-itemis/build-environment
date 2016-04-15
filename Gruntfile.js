@@ -180,6 +180,12 @@ module.exports = function(grunt) {
                     path: '<%= app.built %>'
                 }
             }
+        },
+
+        exec: {
+            updateModules: {
+                cmd: 'npm install'
+            }
         }
     });
 
@@ -199,6 +205,11 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-serve');
 
+    grunt.loadNpmTasks('grunt-exec');
+
+    // Update node_modules
+    grunt.registerTask('update', 'exec:updateModules');
+
     // Default task(s).
     grunt.registerTask('default', [
         'build',
@@ -207,6 +218,7 @@ module.exports = function(grunt) {
 
     // Only build without watch task
     grunt.registerTask('build', [
+        'update',
         'clean',
         'tslint',
         'sass',

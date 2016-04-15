@@ -235,7 +235,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-exec');
 
-    // Update node_modules
+    // Install node_modules
     grunt.registerTask('install', 'exec:installModules');
 
     // Default task(s).

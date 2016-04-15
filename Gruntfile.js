@@ -189,6 +189,12 @@ module.exports = function(grunt) {
                     path: '<%= app.built %>'
                 }
             }
+        },
+
+        exec: {
+            installModules: {
+                cmd: 'npm install'
+            }
         }
     });
 
@@ -209,6 +215,11 @@ module.exports = function(grunt) {
     
     grunt.loadNpmTasks('typescript-tpm');
 
+    grunt.loadNpmTasks('grunt-exec');
+
+    // Update node_modules
+    grunt.registerTask('install', 'exec:installModules');
+
     // Default task(s).
     grunt.registerTask('default', [
         'build',
@@ -217,6 +228,7 @@ module.exports = function(grunt) {
 
     // Only build without watch task
     grunt.registerTask('build', [
+        'install',
         'clean',
         'tpm',
         'tslint',

@@ -1,3 +1,4 @@
+/// <reference path="libs/tsd.d.ts" />
 
 //grunt-start
 /// <reference path="app.ts" />

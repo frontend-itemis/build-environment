@@ -148,6 +148,15 @@ module.exports = function(grunt) {
                 }
             }
         },
+        
+        "tpm-install": {
+            options: {dev: false},
+            all: {src: "bower.json", dest: "types/"}
+        },
+    
+        "tpm-index": {
+            all: {src: ["types/**/*.d.ts"], dest: "types/all.d.ts"}
+        },
 
         tslint: {
             options: {
@@ -196,8 +205,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-tslint");
     grunt.loadNpmTasks('grunt-ts');
     grunt.loadNpmTasks('grunt-karma');
-
     grunt.loadNpmTasks('grunt-serve');
+    
+    grunt.loadNpmTasks('typescript-tpm');
 
     // Default task(s).
     grunt.registerTask('default', [
@@ -208,6 +218,7 @@ module.exports = function(grunt) {
     // Only build without watch task
     grunt.registerTask('build', [
         'clean',
+        'tpm',
         'tslint',
         'sass',
         'postcss',
@@ -215,6 +226,8 @@ module.exports = function(grunt) {
         'uglify',
         'copy'
     ]);
+    
+    grunt.registerTask("tpm", ['tpm-install', 'tpm-index'])
 
     // Run Jasmine Tests with Karma
     grunt.registerTask('test', 'karma');

@@ -32,7 +32,9 @@
     "typescript-tpm": "^0.1.7"
   },
   "scripts": {
-    "start": "npm install && bower install && grunt"
+    "prestart": "npm install",
+    "postinstall": "bower update --save",
+    "start": "grunt"
   },
   "repository": "https://github.com/frontend-itemis/built-environment.git",
   "license": "ISC"

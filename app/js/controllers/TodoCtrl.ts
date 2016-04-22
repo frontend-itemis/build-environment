@@ -9,7 +9,7 @@ module starterkit {
     export class TodoCtrl {
 
         private todos: TodoItem[] = [
-            new TodoItem("Einkaufen Test"),
+            new TodoItem("Einkaufen"),
             new TodoItem("Putzen"),
             new TodoItem("Zimmer aufräumen"),
             new TodoItem("Kochen")

@@ -185,6 +185,16 @@ module.exports = function(grunt) {
                 dest: {
                     'js': '<%= app.built %>/bower.js',
                     'css': '<%= app.built %>/bower.css'
+                },
+                callback: function(mainFiles, component) {
+                    return [].map.call(mainFiles, function(filepath) {
+                        // Use minified files if available
+                        var min = filepath.replace(/\.(js|css)$/, function (x) {
+                            return '.min' + x;
+                        });
+                        console.log(min);
+                        return grunt.file.exists(min) ? min : filepath;
+                    });
                 }
             }
         },

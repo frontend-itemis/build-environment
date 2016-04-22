@@ -45,7 +45,7 @@ module.exports = function(grunt) {
                 ]
             },
             build: {
-                src: '<%= app.built %>/*.css'
+                src: '<%= app.built %>/style.css'
             }
         },
 
@@ -190,18 +190,18 @@ module.exports = function(grunt) {
         },
 
 
-        serve: {
-            options: {
-                port: 9000,
-                output: 'stdout',
-                serve: {
-                    path: '<%= app.built %>'
+        connect: {
+            server: {
+                options: {
+                    port: 9001,
+                    base: 'built',
+                    keepalive: true
                 }
             }
         },
 
         concurrent: {
-            liveTarget: ['serve', 'watch']
+            liveTarget: ['connect', 'watch']
         }
     });
 
@@ -212,13 +212,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks("grunt-tslint");
     grunt.loadNpmTasks('grunt-ts');
     grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-serve');
     grunt.loadNpmTasks('grunt-bower-concat');
     grunt.loadNpmTasks('grunt-concurrent');
     

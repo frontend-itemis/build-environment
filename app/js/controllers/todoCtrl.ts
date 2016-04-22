@@ -31,5 +31,5 @@ module starterkit {
         }
     }
 
-    angular.module("starterkit").controller("todoController", FormCtrl);
+    angular.module("starterkit").controller("todoController", TodoCtrl);
 }

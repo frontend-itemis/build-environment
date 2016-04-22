@@ -71,16 +71,6 @@ module.exports = function(grunt) {
                     }
                 ]
             },
-            bower: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'tmp',
-                        src: ['bower.js', 'bower.css'],
-                        dest: '<%= app.built %>'
-                    }
-                ]
-            },
             images: {
                 files: [
                     {
@@ -192,8 +182,10 @@ module.exports = function(grunt) {
         
         bower_concat: {
             all: {
-                    dest: "tmp/bower.js",
-                    destCss: "tmp/bower.css"
+                dest: {
+                    'js': '<%= app.built %>/bower.js',
+                    'css': '<%= app.built %>/bower.css'
+                }
             }
         },
 
@@ -208,10 +200,8 @@ module.exports = function(grunt) {
             }
         },
 
-        exec: {
-            installModules: {
-                cmd: 'npm install'
-            }
+        concurrent: {
+            liveTarget: ['serve', 'watch']
         }
     });
 
@@ -230,23 +220,18 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-serve');
     grunt.loadNpmTasks('grunt-bower-concat');
+    grunt.loadNpmTasks('grunt-concurrent');
     
     grunt.loadNpmTasks('typescript-tpm');
-
-    grunt.loadNpmTasks('grunt-exec');
-
-    // Install node_modules
-    grunt.registerTask('install', 'exec:installModules');
 
     // Default task(s).
     grunt.registerTask('default', [
         'build',
-        'watch'
+        'concurrent:liveTarget'
     ]);
 
     // Only build without watch task
     grunt.registerTask('build', [
-        'install',
         'clean',
         'tpm',
         'bower_concat',

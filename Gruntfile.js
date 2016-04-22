@@ -71,6 +71,16 @@ module.exports = function(grunt) {
                     }
                 ]
             },
+            bower: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'tmp',
+                        src: ['bower.js', 'bower.css'],
+                        dest: '<%= app.built %>'
+                    }
+                ]
+            },
             images: {
                 files: [
                     {
@@ -179,6 +189,13 @@ module.exports = function(grunt) {
                 singleRun: true
             }
         },
+        
+        bower_concat: {
+            all: {
+                    dest: "tmp/bower.js",
+                    destCss: "tmp/bower.css"
+            }
+        },
 
 
         serve: {
@@ -212,6 +229,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ts');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-serve');
+    grunt.loadNpmTasks('grunt-bower-concat');
     
     grunt.loadNpmTasks('typescript-tpm');
 
@@ -231,6 +249,7 @@ module.exports = function(grunt) {
         'install',
         'clean',
         'tpm',
+        'bower_concat',
         'tslint',
         'sass',
         'postcss',

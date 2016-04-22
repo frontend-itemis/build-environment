@@ -30,4 +30,6 @@ module starterkit {
             $scope.todos = this.todos;
         }
     }
+
+    angular.module("starterkit").controller("todoController", FormCtrl);
 }

@@ -28,7 +28,8 @@
     "time-grunt": "^1.2.2",
     "tslint": "^3.0.0",
     "typescript": "^1.6.2",
-    "typescript-tpm": "^0.1.7"
+    "typescript-tpm": "^0.1.7",
+    "grunt-bower-concat": "^1.0.0"
   },
   "repository": "https://github.com/frontend-itemis/built-environment.git",
   "license": "ISC"

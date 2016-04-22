@@ -1,9 +1,14 @@
 // main.scss
+
+$c1: #fff;
+$c2: #f00;
+
 body {
-  background-color: white;
+  background-color: $c1;
   margin: 0 15%;
   padding: 50px;
+
   h1 {
-    color: red;
+    color: $c2;
   }
 }

@@ -1,9 +1,13 @@
 // main.scss
+
+$c3: #000;
+
 body {
   h1 {
-    color: black;
+    color: $c3;
     font-size: 25px;
   }
+
   h2 {
     display: flex;
   }

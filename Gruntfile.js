@@ -34,6 +34,15 @@ module.exports = function(grunt) {
             }
         },
 
+        sasslint: {
+            /*
+            options: {
+                configFile: 'config/.sass-lint.yml',
+            },
+            */
+            target: '<%= app.sass %>/**/*.scss'
+        },
+
         // Post processing css incl. autoprefixer
         postcss: {
             options: {
@@ -224,6 +233,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-sass-lint');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks("grunt-tslint");
     grunt.loadNpmTasks('grunt-ts');
@@ -245,6 +255,7 @@ module.exports = function(grunt) {
         'tpm',
         'bower_concat',
         'tslint',
+        'sasslint',
         'sass',
         'postcss',
         'ts',

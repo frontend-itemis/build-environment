@@ -11,7 +11,7 @@ module starterkit {
         constructor(private $scope: IFormScope) {
 
             $scope.user = {
-                firstName: "",
+                firstName: "Test",
                 lastName: ""
             };
         }

@@ -70,16 +70,6 @@ module.exports = function(grunt) {
                     }
                 ]
             },
-            css: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'app/styles',
-                        src: ['style.css'],
-                        dest: '<%= app.built %>'
-                    }
-                ]
-            },
             images: {
                 files: [
                     {
@@ -114,7 +104,7 @@ module.exports = function(grunt) {
             },
             css: {
                 files: ['<%= app.sass %>/**/*.{scss,sass}'],
-                tasks: ['sass', 'postcss', 'concat', 'copy:css']
+                tasks: ['sass', 'postcss', 'concat']
             },
             ts: {
                 files: ['<%= app.js %>/**/*.ts'],
@@ -219,7 +209,12 @@ module.exports = function(grunt) {
         },
 
         concurrent: {
-            liveTarget: ['connect', 'watch']
+            liveTarget: {
+                tasks: ['connect', 'watch'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
         }
     });
 

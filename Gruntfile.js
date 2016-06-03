@@ -127,10 +127,6 @@ module.exports = function(grunt) {
                 files: ['<%= app.sass %>/**/*.{scss,sass}'],
                 tasks: ['sass', 'postcss', 'concat']
             },
-            //ts: {
-            //    files: ['<%= app.js %>/**/*.ts'],
-            //    tasks: ['ts']
-            //},
             tslint: {
                 files: [
                     "<%= app.ts %>/**/*.ts",
@@ -171,29 +167,6 @@ module.exports = function(grunt) {
             }
         },
 
-        ts: {
-            default: {
-                src: ['<%= app.ts %>/**/*.ts'],
-                out: '<%= app.built %>/app.js',
-                reference: '<%= app.ts %>/_all.ts',
-                options: {
-                    fast: 'never',
-                    target: 'es5',
-                    module: 'system'
-                },
-                
-            }
-        },
-        
-        "tpm-install": {
-            options: {dev: false},
-            all: {src: "bower.json", dest: "types/"}
-        },
-    
-        "tpm-index": {
-            all: {src: ["types/**/*.d.ts"], dest: "types/all.d.ts"}
-        },
-
         tslint: {
             options: {
                 // can be a configuration object or a filepath to tslint.json
@@ -213,24 +186,6 @@ module.exports = function(grunt) {
             unit: {
                 configFile: 'test/karma.conf.js',
                 singleRun: true
-            }
-        },
-        
-        bower_concat: {
-            all: {
-                dest: {
-                    'js': '<%= app.built %>/bower.js',
-                    'css': '<%= app.built %>/bower.css'
-                },
-                callback: function(mainFiles, component) {
-                    return [].map.call(mainFiles, function(filepath) {
-                        // Use minified files if available
-                        var min = filepath.replace(/\.(js|css)$/, function (x) {
-                            return '.min' + x;
-                        });
-                        return grunt.file.exists(min) ? min : filepath;
-                    });
-                }
             }
         },
 
@@ -270,13 +225,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-sass-lint');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks("grunt-tslint");
-    grunt.loadNpmTasks('grunt-ts');
     grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-bower-concat');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-jspm-builder');
-    
-    grunt.loadNpmTasks('typescript-tpm');
 
     // Default task(s).
     grunt.registerTask('default', [
@@ -288,18 +239,13 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean',
         'copy',
-        'tpm',
-        //'bower_concat',
         'tslint',
         'sasslint',
         'sass',
         'postcss',
-        //'ts',
         'jspm',
         //'uglify',
     ]);
-    
-    grunt.registerTask("tpm", ['tpm-install', 'tpm-index'])
 
     // Run Jasmine Tests with Karma
     grunt.registerTask('test', 'karma');

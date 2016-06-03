@@ -1,5 +1,5 @@
-import { Component } from "angular2/core";
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from "angular2/router";
+import { Component } from "@angular/core";
+import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from "@angular/router";
 
 import { HeroService } from "./hero.service.ts!typescript";
 import { HeroesComponent } from "./heroes.component.ts!typescript";
@@ -11,8 +11,8 @@ import { DashboardComponent } from "./dashboard.component.ts!typescript";
     template: `
         <h1>{{title}}</h1>
         <nav>
-            <a [routerLink]="['Dashboard']">Dashboard</a>
-            <a [routerLink]="['Heroes']">Heroes</a>
+            <a [routerLink]="['/']">Dashboard</a>
+            <a [routerLink]="['/heroes']">Heroes</a>
         </nav>
         <router-outlet></router-outlet>
     `,
@@ -22,21 +22,17 @@ import { DashboardComponent } from "./dashboard.component.ts!typescript";
         HeroService
     ]
 })
-@RouteConfig([
+@Routes([
     {
         path: "/heroes",
-        name: "Heroes",
         component: HeroesComponent
     },
     {
-        path: "/dashboard",
-        name: "Dashboard",
-        component: DashboardComponent,
-        useAsDefault: true
+        path: "/",
+        component: DashboardComponent
     },
     {
         path: "/detail/:id",
-        name: "HeroDetail",
         component: HeroDetailComponent
     }
 ])

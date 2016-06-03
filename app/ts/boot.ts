@@ -4,8 +4,8 @@ import Zone from "zone.js";
 window.zone = Zone;
 
 // The usual bootstrapping imports
-import { bootstrap } from "angular2/platform/browser";
-import { HTTP_PROVIDERS } from "angular2/http";
+import { bootstrap } from "@angular/platform-browser-dynamic";
+import { HTTP_PROVIDERS } from "@angular/http";
 
 import { AppComponent } from "./app.component.ts!typescript";
 

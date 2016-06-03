@@ -1,4 +1,4 @@
-import { Injectable } from "angular2/core";
+import { Injectable } from "@angular/core";
 
 import { Hero } from "./hero.ts!typescript";
 import { HEROES } from "./mock-heroes.ts!typescript";

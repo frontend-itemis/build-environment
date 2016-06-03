@@ -1,5 +1,5 @@
-import { Component, Input, Output, OnInit, EventEmitter } from "angular2/core";
-import { RouteParams } from "angular2/router";
+import { Component, Input, Output, OnInit, EventEmitter } from "@angular/core";
+import { RouteSegment } from "@angular/router";
 
 import { Hero } from "./hero.ts!typescript";
 import { HeroService } from "./hero.service.ts!typescript";
@@ -16,11 +16,11 @@ export class HeroDetailComponent implements OnInit {
 
     constructor(
         private _heroService: HeroService,
-        private _routeParams: RouteParams) { }
+        private _routeSegment: RouteSegment) { }
 
     ngOnInit() {
-        if (this._routeParams.get("id") !== null) {
-            let id = +this._routeParams.get("id");
+        if (this._routeSegment.getParam("id") !== null) {
+            let id = +this._routeSegment.getParam("id");
             this.navigated = true;
             this._heroService.getHero(id)
                 .then(hero => this.hero = hero);

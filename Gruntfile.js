@@ -8,6 +8,7 @@ module.exports = function(grunt) {
         built: 'built',
         sass: 'app/sass',
         js: 'app/js',
+        ts: 'app/ts',
         images: 'app/images'
     };
 
@@ -64,9 +65,29 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: 'app/',
+                        cwd: '<%= app.dir %>/',
                         src: ['*.html'],
                         dest: '<%= app.built %>'
+                    }
+                ]
+            },
+            js: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: './',
+                        src: ['jspm_packages/**', 'jspm_packages/**/*', 'jspm.config.js'],
+                        dest: '<%= app.built %>'
+                    }
+                ]
+            },
+            ts: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= app.ts %>',
+                        src: './**',
+                        dest: '<%= app.built %>/ts'
                     }
                 ]
             },
@@ -74,7 +95,7 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: 'app/',
+                        cwd: '<%= app.dir %>/',
                         src: ['images/*'],
                         dest: '<%= app.built %>'
                     }
@@ -106,17 +127,17 @@ module.exports = function(grunt) {
                 files: ['<%= app.sass %>/**/*.{scss,sass}'],
                 tasks: ['sass', 'postcss', 'concat']
             },
-            ts: {
-                files: ['<%= app.js %>/**/*.ts'],
-                tasks: ['ts']
-            },
+            //ts: {
+            //    files: ['<%= app.js %>/**/*.ts'],
+            //    tasks: ['ts']
+            //},
             tslint: {
                 files: [
-                    "<%= app.js %>/**/*.ts",
-                    "!<%= app.js %>/_all.ts",
-                    "!<%= app.js %>/libs/**/*.ts"
+                    "<%= app.ts %>/**/*.ts",
+                    "!<%= app.ts %>/_all.ts",
+                    "!<%= app.ts %>/libs/**/*.ts"
                 ],
-                tasks: ['tslint']
+                tasks: ['tslint', 'copy:ts']
             },
             js: {
                 files: ['<%= app.built %>/app.js'],
@@ -131,20 +152,36 @@ module.exports = function(grunt) {
                     livereload: true
                 },
                 files: [
-                    '<%= app.built %>/{,*/}*.{html,css,js,png,jpg,jpeg,gif}'
+                    '<%= app.built %>/{,*/}*.{html,css,js,ts,png,jpg,jpeg,gif}'
                 ]
+            }
+        },
+        
+        jspm: {
+            monolithicBundle: {
+                options: {
+                    sfx: true,
+                    minify: true,
+                    mangle: true,
+                    sourceMaps: false
+                },
+                files: {
+                    "built/system.js": "jspm.config.js"
+                }
             }
         },
 
         ts: {
             default: {
-                src: ['<%= app.js %>/**/*.ts'],
+                src: ['<%= app.ts %>/**/*.ts'],
                 out: '<%= app.built %>/app.js',
-                reference: '<%= app.js %>/_all.ts',
+                reference: '<%= app.ts %>/_all.ts',
                 options: {
                     fast: 'never',
-                    target: 'es5'
-                }
+                    target: 'es5',
+                    module: 'system'
+                },
+                
             }
         },
         
@@ -164,9 +201,9 @@ module.exports = function(grunt) {
             },
             files: {
                 src: [
-                    "<%= app.js %>/**/*.ts",
-                    "!<%= app.js %>/_all.ts",
-                    "!<%= app.js %>/libs/**/*.ts"
+                    "<%= app.ts %>/**/*.ts",
+                    "!<%= app.ts %>/_all.ts",
+                    "!<%= app.ts %>/libs/**/*.ts"
                 ]
             }
         },
@@ -203,7 +240,9 @@ module.exports = function(grunt) {
                 options: {
                     port: 9001,
                     base: '<%= app.built %>',
-                    keepalive: true
+                    keepalive: true,
+                    livereload: true,
+                    open: true
                 }
             }
         },
@@ -235,6 +274,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-bower-concat');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-jspm-builder');
     
     grunt.loadNpmTasks('typescript-tpm');
 
@@ -247,15 +287,16 @@ module.exports = function(grunt) {
     // Only build without watch task
     grunt.registerTask('build', [
         'clean',
+        'copy',
         'tpm',
-        'bower_concat',
+        //'bower_concat',
         'tslint',
         'sasslint',
         'sass',
         'postcss',
-        'ts',
-        'uglify',
-        'copy'
+        //'ts',
+        'jspm',
+        //'uglify',
     ]);
     
     grunt.registerTask("tpm", ['tpm-install', 'tpm-index'])
